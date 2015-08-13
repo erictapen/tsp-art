@@ -1,9 +1,5 @@
 import java.awt.image.BufferedImage;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Vector;
 
 
@@ -24,6 +20,7 @@ public class Dotcloud {
 	public void addDots(ArrayList<Vector<Double>> addDots) {
 		this.dots.addAll(addDots);
 	}
+	
 	
 	public void generateDotsFromImage(BufferedImage img, int amount) {
 		this.dimX = img.getWidth();
@@ -51,9 +48,24 @@ public class Dotcloud {
 	
 	public void solveTSP() {
 		//build adjacency matrix
+		int factor = 100; //constant factor, because NearestNeighbour seems to accept only discrete values
 		int[][] amatrix = new int[this.dots.size()][this.dots.size()];
+		for(int i=0; i<this.dots.size(); i++) {
+			for(int j=0; j<this.dots.size(); j++) {
+				double dx = this.dots.get(i).get(0) - this.dots.get(j).get(0);
+				double dy = this.dots.get(i).get(1) - this.dots.get(j).get(1);
+				amatrix[i][j] = ((int) Math.sqrt(dx*dx + dy*dy))*factor;
+			}
+		}
+			
 		
 		TSPNearestNeighbour solver = new TSPNearestNeighbour();
+		solver.tsp(amatrix);
+		ArrayList<Vector<Double>> res = new ArrayList<Vector<Double>>();
+		while(!solver.getStack().isEmpty()) {
+			res.add(this.dots.get(solver.getStack().pop()));
+		}
+		this.dots = res;
 	}
 	
 	public double getDimX() {
@@ -63,5 +75,6 @@ public class Dotcloud {
 	public double getDimY() {
 		return dimY;
 	}
+	
 	
 }
