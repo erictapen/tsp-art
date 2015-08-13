@@ -12,6 +12,11 @@ public class CreateTSPfromImage {
 		BufferedImage img;
 		try {
 			img = ImageIO.read(new File("IMG_204.JPG"));
+			Dotcloud cl = new Dotcloud();
+			cl.generateDotsFromImage(img, 100);
+			cl.solveTSP();
+			ExportSVG exp = new ExportSVG(cl);
+			exp.exportSVG("out.svg", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
