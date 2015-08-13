@@ -90,4 +90,10 @@ public class TSPNearestNeighbour
          }
         scanner.close();
     }
+
+	public Stack<Integer> getStack() {
+		return stack;
+	}
+    
+    
 }
