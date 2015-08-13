@@ -49,6 +49,8 @@ public class Dotcloud {
 		}	
 	}
 	
+	
+	
 	public void exportSVG(String filename, boolean tspEnabled) {
 		
 		Locale.setDefault(Locale.ENGLISH);
@@ -66,10 +68,10 @@ public class Dotcloud {
 					"     width=\"%widthpx\" height=\"%heightpx\"\n" + 
 					"     viewBox=\"%cornerx %cornery %width %height\">\n" + 
 					"\n";
-			append = append.replaceAll("%width", df.format(width*scale));
-			append = append.replaceAll("%height", df.format(height*scale));
-			append = append.replaceAll("%cornerx", df.format(posxmin*scale));
-			append = append.replaceAll("%cornery", df.format(posymin*scale));
+			append = append.replaceAll("%width", df.format(this.dimX));
+			append = append.replaceAll("%height", df.format(this.dimY));
+			append = append.replaceAll("%cornerx", df.format(0.0));
+			append = append.replaceAll("%cornery", df.format(0.0));
 			
 			writer.append(append);
 			
