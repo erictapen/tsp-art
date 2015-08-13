@@ -54,7 +54,7 @@ public class Dotcloud {
 			for(int j=0; j<this.dots.size(); j++) {
 				double dx = this.dots.get(i).get(0) - this.dots.get(j).get(0);
 				double dy = this.dots.get(i).get(1) - this.dots.get(j).get(1);
-				amatrix[i][j] = (int) Math.sqrt(dx*dx + dy*dy);
+				amatrix[i][j] = ((int) Math.sqrt(dx*dx + dy*dy))*factor;
 			}
 		}
 			
