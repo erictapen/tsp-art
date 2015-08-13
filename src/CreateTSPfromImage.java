@@ -11,7 +11,7 @@ public class CreateTSPfromImage {
 	public static void main(String[] args) {
 		BufferedImage img;
 		try {
-			img = ImageIO.read(new File("IMG_204.JPG"));
+			img = ImageIO.read(new File("IMG_2040.JPG"));
 			Dotcloud cl = new Dotcloud();
 			cl.generateDotsFromImage(img, 100);
 			cl.solveTSP();

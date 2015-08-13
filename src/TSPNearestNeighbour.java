@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
@@ -6,10 +7,12 @@ public class TSPNearestNeighbour
 {
     private int numberOfNodes;
     private Stack<Integer> stack;
+    private ArrayList<Integer> result;
  
     public TSPNearestNeighbour()
     {
         stack = new Stack<Integer>();
+        result = new ArrayList<Integer>();
     }
  
     public void tsp(int adjacencyMatrix[][])
@@ -21,7 +24,7 @@ public class TSPNearestNeighbour
         int element, dst = 0, i;
         int min = Integer.MAX_VALUE;
         boolean minFlag = false;
-        System.out.print(1 + "\t");
+        //System.out.print(1 + "\t");
  
         while (!stack.isEmpty())
         {
@@ -45,7 +48,7 @@ public class TSPNearestNeighbour
             {
                 visited[dst] = 1;
                 stack.push(dst);
-                System.out.print(dst + "\t");
+                result.add(dst);
                 minFlag = false;
                 continue;
             }
@@ -93,6 +96,10 @@ public class TSPNearestNeighbour
 
 	public Stack<Integer> getStack() {
 		return stack;
+	}
+
+	public ArrayList<Integer> getResult() {
+		return result;
 	}
     
     

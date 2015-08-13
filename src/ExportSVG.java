@@ -19,7 +19,7 @@ public class ExportSVG {
 	public void exportSVG(String filename, boolean tspEnabled) {
 		
 		Locale.setDefault(Locale.ENGLISH);
-		DecimalFormat df = new DecimalFormat("#.########");
+		DecimalFormat df = new DecimalFormat("#.###");
 		try{
 			FileWriter writer = new FileWriter(filename);
 			String append = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
@@ -39,16 +39,16 @@ public class ExportSVG {
 			append = append.replaceAll("%cornery", df.format(0.0));
 			
 			writer.append(append);
-			
+			System.out.println("Listsize: " + dotcloud.getDots().size());
 			// Insert dots
 			if (tspEnabled) { // Connected with lines
 				append = "<polyline points=\"";
 				
 				for (int i = 0; i < dots.size(); i++, append += " ") {
-					append += dots.get(i).get(0) + "," + dots.get(i).get(1);
+					append += dots.get(i).get(0) + "," + dots.get(i).get(1) + "\n";
 				}
 				
-				append += "style=\"fill:none;stroke:black;stroke-width:\" />";
+				append += "\" style=\"fill:none;stroke:black;stroke-width:2\" />";
 				
 			} else { // Only dots
 				
@@ -66,9 +66,8 @@ public class ExportSVG {
 			
 			
 			writer.append(
-					"\\n\" + \n" + 
-					"					\"</svg>"
-					);
+					"\n" + 
+					"</svg>");
 
 			writer.flush();
 			writer.close();

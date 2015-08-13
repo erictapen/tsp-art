@@ -43,7 +43,7 @@ public class Dotcloud {
 				this.dots.add(dot);
 				amount--;
 			}
-		}	
+		}
 	}
 	
 	public void solveTSP() {
@@ -57,13 +57,14 @@ public class Dotcloud {
 				amatrix[i][j] = ((int) Math.sqrt(dx*dx + dy*dy))*factor;
 			}
 		}
+		System.out.println(amatrix.length);
 			
 		
 		TSPNearestNeighbour solver = new TSPNearestNeighbour();
 		solver.tsp(amatrix);
 		ArrayList<Vector<Double>> res = new ArrayList<Vector<Double>>();
-		while(!solver.getStack().isEmpty()) {
-			res.add(this.dots.get(solver.getStack().pop()));
+		for(Integer i : solver.getResult()) {
+			res.add(this.dots.get(i.intValue()));
 		}
 		this.dots = res;
 	}
