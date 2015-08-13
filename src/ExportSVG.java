@@ -1,10 +1,20 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Vector;
 
 
 public class ExportSVG {
+	
+	private Dotcloud dotcloud;
+	private ArrayList<Vector<Double>> dots;
+	
+	public ExportSVG(Dotcloud dotcloud) {
+		this.dotcloud = dotcloud;
+		dots = dotcloud.getDots();
+	}
 	
 	public void exportSVG(String filename, boolean tspEnabled) {
 		
@@ -23,12 +33,37 @@ public class ExportSVG {
 					"     width=\"%widthpx\" height=\"%heightpx\"\n" + 
 					"     viewBox=\"%cornerx %cornery %width %height\">\n" + 
 					"\n";
-			append = append.replaceAll("%width", df.format(this.dimX));
-			append = append.replaceAll("%height", df.format(this.dimY));
+			append = append.replaceAll("%width", df.format(dotcloud.getDimX()));
+			append = append.replaceAll("%height", df.format(dotcloud.getDimX()));
 			append = append.replaceAll("%cornerx", df.format(0.0));
 			append = append.replaceAll("%cornery", df.format(0.0));
 			
 			writer.append(append);
+			
+			// Insert dots
+			if (tspEnabled) { // Connected with lines
+				append = "<polyline points=\"";
+				
+				for (int i = 0; i < dots.size(); i++, append += " ") {
+					append += dots.get(i).get(0) + "," + dots.get(i).get(1);
+				}
+				
+				append += "style=\"fill:none;stroke:black;stroke-width:\" />";
+				
+			} else { // Only dots
+				
+				for (int i = 0; i < dots.size(); i++) {
+					append += "<line x1=" + dots.get(i).get(0)+ 
+							" y1=" + dots.get(i).get(1) + 
+							" x2=" + dots.get(i).get(0) + 
+							" y2=" + dots.get(i).get(1) +
+							" style=\"stroke:rgb(255,0,0);stroke-width:2\" /> \n";
+				}
+				
+			}
+			
+			writer.append(append);
+			
 			
 			writer.append(
 					"\\n\" + \n" + 
