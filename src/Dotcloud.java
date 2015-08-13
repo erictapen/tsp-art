@@ -49,14 +49,19 @@ public class Dotcloud {
 		}	
 	}
 	
-	
-	
-	
-	
-	public void solveTSP(int iterations) {
+	public void solveTSP() {
+		//build adjacency matrix
+		int[][] amatrix = new int[this.dots.size()][this.dots.size()];
 		
+		TSPNearestNeighbour solver = new TSPNearestNeighbour();
 	}
 	
-	
+	public double getDimX() {
+		return dimX;
+	}
+
+	public double getDimY() {
+		return dimY;
+	}
 	
 }
