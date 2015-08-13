@@ -1,9 +1,5 @@
 import java.awt.image.BufferedImage;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Vector;
 
 
