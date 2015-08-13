@@ -11,9 +11,9 @@ public class CreateTSPfromImage {
 	public static void main(String[] args) {
 		BufferedImage img;
 		try {
-			img = ImageIO.read(new File("IMG_2040.JPG"));
+			img = ImageIO.read(new File(args[0]));
 			Dotcloud cl = new Dotcloud();
-			cl.generateDotsFromImage(img, 100);
+			cl.generateDotsFromImage(img, Integer.parseInt(args[1]));
 			cl.solveTSP();
 			ExportSVG exp = new ExportSVG(cl);
 			exp.exportSVG("out.svg", true);
