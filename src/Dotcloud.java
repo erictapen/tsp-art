@@ -2,15 +2,17 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import tsp_ikm.TSP;
+
 
 public class Dotcloud {
 	private ArrayList<Vector<Double>> dots = new ArrayList<Vector<Double>>();
 	private double dimX = 1024.0;
 	private double dimY = 1024.0;
-	
-	
+
+
 	public Dotcloud() {
-		
+
 	}
 
 	public ArrayList<Vector<Double>> getDots() {
@@ -20,8 +22,8 @@ public class Dotcloud {
 	public void addDots(ArrayList<Vector<Double>> addDots) {
 		this.dots.addAll(addDots);
 	}
-	
-	
+
+
 	public void generateDotsFromImage(BufferedImage img, int amount) {
 		this.dimX = img.getWidth();
 		this.dimY = img.getHeight();
@@ -30,22 +32,22 @@ public class Dotcloud {
 			for(int j=0; j<img.getHeight(); j++) {
 				int hexColor = img.getRGB(i, j);
 				brightness[i][j] = (int)(	((hexColor >> 16)
-											+ ((hexColor & 0x00ff00) >> 8)
-											+ (hexColor & 0x0000ff))
-										*(1.0/3.0));
+						+ ((hexColor & 0x00ff00) >> 8)
+						+ (hexColor & 0x0000ff))
+						*(1.0/3.0));
 			}
 		}
 		while(amount > 0) {
 			Vector<Double> dot = new Vector<Double>(2);
 			dot.add(0, Math.random()*this.dimX);
 			dot.add(1, Math.random()*this.dimY);
-			if(Math.random()*brightness[dot.get(0).intValue()][(int)dot.get(1).intValue()] > 1.0) {
+			if(Math.random()*brightness[dot.get(0).intValue()][(int)dot.get(1).intValue()] < 1.0) {
 				this.dots.add(dot);
 				amount--;
 			}
 		}
 	}
-	
+
 	public void solveTSP() {
 		//build adjacency matrix
 		int factor = 100; //constant factor, because NearestNeighbour seems to accept only discrete values
@@ -58,17 +60,18 @@ public class Dotcloud {
 			}
 		}
 		System.out.println(amatrix.length);
-			
-		
-		TSPNearestNeighbour solver = new TSPNearestNeighbour();
-		solver.tsp(amatrix);
+
+		int[] path = TSP.TSP(amatrix);
 		ArrayList<Vector<Double>> res = new ArrayList<Vector<Double>>();
-		for(Integer i : solver.getResult()) {
-			res.add(this.dots.get(i.intValue()));
+		//int sum = 0;
+		for(Integer i : path) {
+			res.add(this.dots.get(i));
+			//sum += this.dots.get(i).size();
 		}
+		//System.out.println(sum);
 		this.dots = res;
 	}
-	
+
 	public double getDimX() {
 		return dimX;
 	}
@@ -76,6 +79,6 @@ public class Dotcloud {
 	public double getDimY() {
 		return dimY;
 	}
-	
-	
+
+
 }
