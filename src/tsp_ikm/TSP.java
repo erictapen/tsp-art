@@ -10,10 +10,10 @@ public class TSP {
 	private static int[] path;
 
 	
-	public static int[] TSP (int[][] d) {
+	public static int[] TSP (int[][] d, int computingTimeInSec) {
 		//do simulated annealing
 	
-		SimulatedAnnealing annealing = new SimulatedAnnealing(d);
+		SimulatedAnnealing annealing = new SimulatedAnnealing(d, computingTimeInSec);
 		annealing.simulatedAnnealing();
 		
 		path = annealing.getPath();

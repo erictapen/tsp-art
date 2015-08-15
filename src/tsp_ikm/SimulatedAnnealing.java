@@ -13,6 +13,7 @@ public class SimulatedAnnealing {
 	private int[] path;
 	private Random r;
 	private TwoOpt twoOpt;
+	int computingTimeInSec;
 	
 	private final Tool tool = new Tool();
 
@@ -21,10 +22,12 @@ public class SimulatedAnnealing {
 	 * @param distanceMatrix instance
 	 * @param nameOfMap: name of the map
 	 */
-	public SimulatedAnnealing(final int[][] distanceMatrix) {
+	public SimulatedAnnealing(final int[][] distanceMatrix, int computingTimeInSec) {
 		this.distanceMatrix = distanceMatrix;
 		r = new Random();
 		twoOpt = new TwoOpt(distanceMatrix);
+		this.computingTimeInSec = computingTimeInSec;
+		if(this.computingTimeInSec == 0) this.computingTimeInSec = 180;
 	}
 
 	/**
@@ -60,7 +63,7 @@ public class SimulatedAnnealing {
 			//System.out.println(T + " " + bestCost + " " + currentCost);
 			
 			// if we haven't run out of time
-			if (((System.currentTimeMillis()) - start) * Math.pow(10, -3) > 300.0) {
+			if (((System.currentTimeMillis()) - start) * Math.pow(10, -3) > this.computingTimeInSec) {
 				break;
 			}
 			// initialize i

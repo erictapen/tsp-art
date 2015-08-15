@@ -48,7 +48,7 @@ public class Dotcloud {
 		}
 	}
 
-	public void solveTSP() {
+	public void solveTSP(int computingTimeInSec) {
 		//build adjacency matrix
 		int factor = 100; //constant factor, because NearestNeighbour seems to accept only discrete values
 		int[][] amatrix = new int[this.dots.size()][this.dots.size()];
@@ -61,7 +61,7 @@ public class Dotcloud {
 		}
 		System.out.println(amatrix.length);
 
-		int[] path = TSP.TSP(amatrix);
+		int[] path = TSP.TSP(amatrix, computingTimeInSec);
 		ArrayList<Vector<Double>> res = new ArrayList<Vector<Double>>();
 		//int sum = 0;
 		for(Integer i : path) {

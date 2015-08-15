@@ -13,7 +13,13 @@ public class CreateTSPfromImage {
 			img = ImageIO.read(new File(args[0]));
 			Dotcloud cl = new Dotcloud();
 			cl.generateDotsFromImage(img, Integer.parseInt(args[1]));
-			cl.solveTSP();
+			int compTime;
+			try {
+				compTime = Integer.parseInt(args[2]);
+			} catch(NumberFormatException e) {
+				compTime = 180;
+			}
+			cl.solveTSP(compTime);
 			ExportSVG exp = new ExportSVG(cl);
 			exp.exportSVG("out.svg", true);
 		} catch (IOException e) {
